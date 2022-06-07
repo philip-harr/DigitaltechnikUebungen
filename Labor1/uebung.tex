@@ -1,0 +1,183 @@
+% ----------------------- TODO ---------------------------
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{1}
+\newcommand{\EXERCISES}{5}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Grundlagen der Digitaltechnik}
+\newcommand{\TOPIC}{Schaltnetze \& Logisim}
+\newcommand{\DATE}{22.04.2022}
+% ----------------------- TODO ---------------------------
+
+\documentclass[a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{polynom}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{forloop}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{algpseudocode,algorithm,algorithmicx}
+
+%Definiere Let-Command für algorithmen
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+
+\input kvmacros
+
+%Größe der Ränder setzen
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{\COURSE}
+\fancyhead[R]{\DATE}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage /\pageref*{LastPage}}
+\setlength{\parindent}{0pt}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+  \begin{center}
+    {\Large Labor #1: \TOPIC}\\
+    {(Datum #2)}
+  \end{center}
+}
+
+
+\begin{document}
+
+
+\header{Nr. \NUMBER}{\DATE}
+
+
+
+% ----------------------- TODO ---------------------------
+% Hier werden die Aufgaben/Lösungen eingetragen:
+\section*{Aufgabe 1: Installation von Logisim}
+\begin{enumerate}
+	\item Folge diesem Link: \href{https://github.com/logisim-evolution/logisim-evolution}{https://github.com/logisim-evolution/logisim-evolution}
+	\item Gehe zu Releases
+	\item Downloade das Package des neuesten Releases:
+	\begin{itemize}
+		\item .deb: Debian Package (für Debian-Basierte Linux-Distros)
+		\item .rpm: Red Hat Package (für die meisten anderen Linux-Distros (z.B. Fedora))
+		\item .msi: Microsoft Installer (für Windows)
+		\item .dgm: für MacOs
+		\item .jar: Java-Executable $\rightarrow$ kann auf jedem OS direkt mit der JRE (Java Runtime Environment) ausgeführt werden
+	\end{itemize}
+	\item Installiere das gewählte Package oder führe das .jar mit der JRE aus.
+\end{enumerate}
+
+\section*{Aufgabe 2: Schaltnetze - Der Milchschäumer}
+Erstelle die Steuerung eines Milchschäumers. \\
+Ein Milchschäumer hat vier Tasten, mit welchen der Nutzer auswählen kann wie lange geschäumt und ob die Milch zusätzlich erwärmt werden soll:
+\begin{itemize}
+	\item Taste 1: warme Milch \& kurze Schäumdauer
+	\item Taste 2: warme Milch \& mittlere Schäumdauer
+	\item Taste 3: warme Milch \& lange Schäumdauer
+	\item Taste 4: kalte Milch \& sehr lange Schäumdauer
+\end{itemize}
+
+Die kombinierte Schäum-/Erwärmeeinheit wird von einem Zulieferer bezogen und kommt mit folgendem Interface:
+\begin{itemize}
+	\item Die Länge der Schäumdauer wird von (0 kurz bis 3 sehr lang) mit 2 Signalen encodiert (L0, L1).
+	\item Ein weiteres Signal, W0, encodiert mit 1 = warm und 0 = kalt die Milchtemperatur.
+	\item Sobald etwas eingestellt wurde, sperrt sich Interface selber und ignoriert Eingaben, bis der Auftrag abgearbeitet wurde.
+	\item Ist ein Auftrag abgearbeitet, entsperrt sich das Interface wieder und ein neuer Auftrag könnte gestartet werden.
+\end{itemize}
+
+
+\subsection*{a) Erstellung der Wahrheitstabelle}
+Erstelle aus den obigen Angaben eine Logikschaltung, welche die Tasten als Eingänge besitzt und das Interface der kombinierten Schäum-/Erwärmeeinheit ansteuert (d.h. die Eingänge des Interface sind die Ausgänge der zu erstellenden Schaltung).
+
+\subsection*{b) Erstellung der Schaltung}
+Mit der aus a) erstellten Wahrheitstabelle soll nun eine Schaltung ermittelt. Hierzu kann ein beliebiges Vereinfachungsverfahren (z.B. KV-Diagramm) benutzt werden.
+
+\subsection*{c) LEDs}
+Der Hersteller der Schäum-/Erwärmeeinheit bringt ein neue, verbesserte Version der Einheit heraus. Diese hat ein unverändertes Ansteuerungsinterface, bringt jetzt aber zusätzlich folgende Outputs mit:
+\begin{itemize}
+	\item EN $\rightarrow$ ENABLED
+	\item OL0, OL1 $\rightarrow$ Output L0, L1
+	\item OW0 $\rightarrow$ Output W0
+\end{itemize}
+EN zeigt an, dass die Einheit in Betrieb ist (0 = aus, 1 = an). OL0, OL1, OW0 sind immer 0, wenn die Einheit nicht in Betrieb ist. Wenn die Einheit in Betrieb ist, zeigen Sie allerdings während kompletten Zeit des Betriebs die vorher eingestellten Parameter an.\\
+
+
+Mit diesen Signalen sollen LEDs angesteuert werden, welche den Betriebszustand des Milchschäumers anzeigen. Dafür werden ursprünglichen, einfachen Tasten ersetzt, durch neue Tasten die eine integrierte LED besitzen, welche unabhängig angesteuert werden können.\\
+
+
+Erstelle nach dem gleichen Vorgehen wie in Teilaufgabe a/b eine Schaltung, welche diese LEDs ansteuert, sodass die zugehörige LED einer Taste leuchtet, wenn der Schäumer gerade in diesem Betriebszustand ist.\\
+\textbf{Hinweis 1:} Die LED ist in keinerweise an den Tastendruck gekoppelt, Sie sitzt lediglich im gleichen Gehäuse wie die Taste\\
+\textbf{Hinweis 2:} Die Signale EN, OL0, OL1, OW0 sind die Eingänge, LED1-4 die Ausgänge der Schaltung.
+
+\subsection*{d) Logisim}
+\textit{Falls man in Logisim noch nicht so ganz klar kommt, kann es vllt. helfen zuerst die Fragen aus 3a) zu beantworten bevor man mit dieser Aufgabe startet.\\}
+
+
+Teste die beiden Schaltungen in Logisim. Die Schäum-/Erwärmeeinheit soll dabei nicht mitsimuliert werden. Eingänge und Ausgänge der Schaltung können einfach durch Schalter (oder Inputpins) und LEDs (oder Outputpins) dargestellt werden.
+
+
+\section*{Aufgabe 3: Mehr Logisim}
+\subsection*{a) Umschauen}
+Mache dich ein bisschen mit Logisim vertraut und schaue dich um (wenn du mehr so der Hands-on Mensch bist und denkst, dass du mit Logisim klarkommst, kannst du diese Teilaufgabe auch überspringen). Folgende Fragestellungen können dabei helfen:
+\begin{itemize}
+	\item Wie verbindet man Gates?
+	\item Für was braucht man Pins, für was Splitter?
+	\item Wie kann man Signale darstellen (LED, Oszilloskop, Outputs ...)?
+	\item Wie kann ich Signale erzeugen, für was ist der Clock Baustein?
+	\item Wie kann ich Subsysteme erstellen?
+	\item Wie kann ich die Parmeter eines Bausteins verändern (z.B. Eingänge eines Gates)?
+	\item Was ist der Unterschied zwischen den Bauteilkategorien (bzw. wo finde ich was)?
+\end{itemize}
+
+\subsection*{b) Taktteiler I}
+Baue in Logisim mit einem 4 Bit Zähler (Memory $\rightarrow$ Counter) Taktteiler auf, welcher einen Eingangstakt (Wiring $\rightarrow$ Clock) halbiert, viertelt, achtelt und sechzehntelt. Schaue dir das Ergebnis am besten auf einem Oszilloskop an (Input/Output Extra $\rightarrow$ Digital oscilloscope).\\
+
+\textbf{Hinweis 1:} Wenn man nicht weiß, was ein bestimmter Eingang eines Gates macht, kann man mit der Maus über den blauen Punkt an diesem speziellen Eingang des Gates hovern und man bekommt einen Hinweistext angezeigt.\\
+\textbf{Hinweis 2:} Wenn nicht gleich klar ist wie man mit einem Zähler einen Takteiler realisieren kann, schreibe die z.B. die Zahlen 0 bis 8 im Binärsystem untereinader und schaue ob ein Muster erkennbar ist.\\
+
+\subsection*{c) Taktteiler II}
+An dem von uns in b) verwendeten Counter kann man recht viel einstellen, was wir für den Takteiler aus b) eigentlich gar nicht brauchen. Erstelle daher lediglich aus einfachen Gates (UND/ODER/NOT + FlipFlops) einen simplen 4 Bit Zähler als Subsystem (Rechts-Click auf das Projekt $\rightarrow$ Add Circuit).
+
+Der Zähler muss:
+\begin{itemize}
+	\item bei positiver Flanke nach oben Zählen
+	\item nur nach oben Zahlen können
+	\item einen Zähleingang besitzen
+	\item vier Ausgänge für die einzelnen Zählbits besitzen
+\end{itemize}
+
+\textbf{Hinweis 1:} Ein- und Ausgänge in einem Subsystem müssen mit dem Bauteil: Pin realisiert werden (Wiring $\rightarrow$ Pin). Ansonsten kann man diese dann nicht sehen wenn man das Subsystem in ein anderes System einfügt. \\
+\textbf{Hinweis 2:} Falls man nicht mehr weiß, wie man einen Zähler genau aufbaut, ist das nicht schlimm. Das Script oder das Internet können hier bestimmt abhilfe schaffen.\\
+
+
+Wenn das Subsystem erstellt wurde, kann dieses jetzt den Counter aus Aufgabe b) ersetzen. Baue ihn ein und schaue ob die Takteilerschaltung immer noch funktioniert.
+\newpage
+
+\subsection*{d) Takteiler III (Wenn noch Zeit ist)}
+Mit der vorherigen Schaltung konnte man einen Einangstakt recht leicht durch Potenzen zur Basis 2 teilen. 
+Jetzt soll ein Eingangstakt gedrittelt werden. Wie könnte man das realisieren (Stichwort "LOAD")? Mit dem einfachen Zähler aus Aufgabenteil c) ist das wohl nicht möglich. Tausche ihn daher wieder durch den Logisim-Counter (Memory $\rightarrow$ Counter) aus.\\
+Schaue dir auch hier die Ergebnisse mit einem Oszilloskop an (Input/Output Extra $\rightarrow$ Digital oscilloscope).
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
