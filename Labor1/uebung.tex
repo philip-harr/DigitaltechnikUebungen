@@ -5,7 +5,7 @@
 % Diese Daten müssen einmalig pro Vorlesung angepasst werden:
 \newcommand{\COURSE}{Grundlagen der Digitaltechnik}
 \newcommand{\TOPIC}{Schaltnetze \& Logisim}
-\newcommand{\DATE}{22.04.2022}
+\newcommand{\DATE}{\today}
 % ----------------------- TODO ---------------------------
 
 \documentclass[a4paper]{scrartcl}
@@ -85,6 +85,10 @@
 \end{enumerate}
 
 \section*{Aufgabe 2: Schaltnetze - Der Milchschäumer}
+\textit{Falls ihr in Logisim noch nicht so ganz klar kommt, 
+kann es helfen zuerst einige Fragen aus 3a) zu beantworten bevor man mit dem Implementierungsteil
+dieser Aufgabe startet. Oft hilft aber auch einfach ``learning by doing''.\\}
+
 Erstelle die Steuerung eines Milchschäumers. \\
 Ein Milchschäumer hat vier Tasten, mit welchen der Nutzer auswählen kann wie lange geschäumt und ob die Milch zusätzlich erwärmt werden soll:
 \begin{itemize}
@@ -98,39 +102,88 @@ Die kombinierte Schäum-/Erwärmeeinheit wird von einem Zulieferer bezogen und k
 \begin{itemize}
 	\item Die Länge der Schäumdauer wird von (0 kurz bis 3 sehr lang) mit 2 Signalen encodiert (L0, L1).
 	\item Ein weiteres Signal, W0, encodiert mit 1 = warm und 0 = kalt die Milchtemperatur.
-	\item Sobald etwas eingestellt wurde, sperrt sich Interface selber und ignoriert Eingaben, bis der Auftrag abgearbeitet wurde.
+	\item Sobald etwas eingestellt wurde (d.h. mindestens eins der Signale (W0, L0, L1) ist high), sperrt sich Interface selber und ignoriert Eingaben, bis der Auftrag abgearbeitet wurde.
 	\item Ist ein Auftrag abgearbeitet, entsperrt sich das Interface wieder und ein neuer Auftrag könnte gestartet werden.
 \end{itemize}
 
 
-\subsection*{a) Erstellung der Wahrheitstabelle}
+\subsection*{a) Eingangsschaltung}
+\subsubsection*{i)  Erstellung der Wahrheitstabelle}
+
 Erstelle aus den obigen Angaben eine Logikschaltung, welche die Tasten als Eingänge besitzt und das Interface der kombinierten Schäum-/Erwärmeeinheit ansteuert (d.h. die Eingänge des Interface sind die Ausgänge der zu erstellenden Schaltung).
 
-\subsection*{b) Erstellung der Schaltung}
-Mit der aus a) erstellten Wahrheitstabelle soll nun eine Schaltung ermittelt. Hierzu kann ein beliebiges Vereinfachungsverfahren (z.B. KV-Diagramm) benutzt werden.
+\subsubsection*{ii) Erstellung der Schaltung}
+Mit der aus a) erstellten Wahrheitstabelle soll nun eine Schaltung ermittelt. Hierzu kann ein beliebiges Vereinfachungsverfahren (z.B. KV-Diagramm) benutzt werden. 
+Erstelle aus deinen Berechnungen eine Schaltung in Logisim. Um deine Schaltung wieder zu verwenden, lege bevor du startest einen neue Schaltung im Projekt an 
+(Rechtsklick auf Projekt-Name $\rightarrow$ ``Add Circuit'').
 
-\subsection*{c) LEDs}
-Der Hersteller der Schäum-/Erwärmeeinheit bringt ein neue, verbesserte Version der Einheit heraus. Diese hat ein unverändertes Ansteuerungsinterface, bringt jetzt aber zusätzlich folgende Outputs mit:
+\subsubsection*{iii) Test der Schaltung}
+Erstelle eine weitere Schaltung und nenne diese so wie die erste Schaltung hänge aber ``\_Test'' an. Importiere deine Schaltung aus Aufgabenteil a.ii (per drag and drop).
+Beschalte die Eingänge jetzt z.B. mit Taster oder DIP-Switches und die Ausgänge z.B. mit LEDs oder dem Digital-Scope.
+Verifiziere die Richtigkeit der Schaltung.
+
+\subsection*{b) LEDs}
+Der Hersteller der Schäum-/Erwärmeeinheit bringt ein neue, verbesserte Version der Einheit heraus. Diese hat ein unverändertes Ansteuerungsinterface, 
+bringt jetzt aber zusätzlich folgende Outputs mit:
 \begin{itemize}
 	\item EN $\rightarrow$ ENABLED
 	\item OL0, OL1 $\rightarrow$ Output L0, L1
 	\item OW0 $\rightarrow$ Output W0
 \end{itemize}
-EN zeigt an, dass die Einheit in Betrieb ist (0 = aus, 1 = an). OL0, OL1, OW0 sind immer 0, wenn die Einheit nicht in Betrieb ist. Wenn die Einheit in Betrieb ist, zeigen Sie allerdings während kompletten Zeit des Betriebs die vorher eingestellten Parameter an.\\
+EN zeigt an, dass die Einheit in Betrieb ist (0 = aus, 1 = an). OL0, OL1, OW0 sind immer 0, wenn die Einheit nicht in Betrieb ist.
+Wenn die Einheit in Betrieb ist, zeigen sie während kompletten der
+Zeit des Betriebs die vorher eingestellten Parameter an (einfach gesagt: sie latched einfach die Eingangssignale).\\
 
 
-Mit diesen Signalen sollen LEDs angesteuert werden, welche den Betriebszustand des Milchschäumers anzeigen. Dafür werden ursprünglichen, einfachen Tasten ersetzt, durch neue Tasten die eine integrierte LED besitzen, welche unabhängig angesteuert werden können.\\
+Mit diesen Signalen sollen LEDs angesteuert werden, welche den Betriebszustand des Milchschäumers anzeigen.
+Dafür werden ursprünglichen, einfachen Tasten ersetzt, durch neue Tasten die eine integrierte LED besitzen.
+Die LED kann unabhängig vom Tastendruck beliebig angesteuert werden.\\
 
 
-Erstelle nach dem gleichen Vorgehen wie in Teilaufgabe a/b eine Schaltung, welche diese LEDs ansteuert, sodass die zugehörige LED einer Taste leuchtet, wenn der Schäumer gerade in diesem Betriebszustand ist.\\
+Erstelle wie in Teilaufgabe a) eine Schaltung,
+Diese Schaltung soll die LEDs ansteuern. Das Ziel ist, dass die zugehörige LED einer Taste leuchtet,
+solange der Schäumer gerade in diesem Betriebszustand ist.
+Gehe nach der gleichen Methodik wie in a) vor:
+\begin{itemize}
+	\item[i)] Design
+	\item[ii)] Implementierung (neue Schaltung im Projekt)
+	\item[iii)] Test (neue Testschaltung im Projekt)
+\end{itemize}
 \textbf{Hinweis 1:} Die LED ist in keinerweise an den Tastendruck gekoppelt, Sie sitzt lediglich im gleichen Gehäuse wie die Taste\\
-\textbf{Hinweis 2:} Die Signale EN, OL0, OL1, OW0 sind die Eingänge, LED1-4 die Ausgänge der Schaltung.
+\textbf{Hinweis 2:} Die Signale EN, OL0, OL1, OW0 sind die Eingänge, LED1-4 die Ausgänge der zu erstellenden Schaltung.
 
-\subsection*{d) Logisim}
-\textit{Falls man in Logisim noch nicht so ganz klar kommt, kann es vllt. helfen zuerst die Fragen aus 3a) zu beantworten bevor man mit dieser Aufgabe startet.\\}
+\subsection*{c) Integrationstest}
+Nachdem du nun beide Schaltungen erstellt und auf korrekte Funktion getestet hast, ist es Zeit für die Geräteintegration und den Gerätetest.
+Lade dazu von Moodle die Logisim-Schäumeinheit herunter und importiere sie in dein Projekt:\\
+``Project'' $\rightarrow$ ``Load Library'' $\rightarrow$  ``Logism Evolution Library'' $\rightarrow$ Pick file
 
 
-Teste die beiden Schaltungen in Logisim. Die Schäum-/Erwärmeeinheit soll dabei nicht mitsimuliert werden. Eingänge und Ausgänge der Schaltung können einfach durch Schalter (oder Inputpins) und LEDs (oder Outputpins) dargestellt werden.
+
+\subsubsection*{i)}
+Verbinde deine Schaltung mit der ``Unit''. Das sollte dan ca. so aussehen:
+
+\begin{figure}[h]
+	\includegraphics*[width=\textwidth]{integration.png}
+\end{figure}
+
+\subsubsection*{ii)}
+Um die Schaltung zu testen, musst du nun den Takt der Simulation einschalten und deutlich herunterstellen, empfohlen wird 1 Hz.
+Einstellung:
+\begin{itemize}
+	\item Reiter ``Simulate'' $\rightarrow$ ``Auto-Tick Frequency'' $\rightarrow$ 1 Hz
+	\item Reiter ``Simulate'' $\rightarrow$ ``Auto-Tick Frequency Enabled''
+\end{itemize} 
+
+Es sollte jetzt noch nicht sofort etwas passieren, wenn du allerdings einen Taster drückst sollte die zugehörige LED für eine bestimmte 
+Zeit anbleiben und dann wieder ausgehen. Teste ob die Schaltung sich so verhält wie in der Aufgabe spezifiziert. \\
+
+(\textit{Die
+erstellte Unit wurde eigentlich ausgiebig auf korrekte Funktion getestet, dennoch ist es nicht auszuschließen, dass diese noch Bugs enthält. Falls du denkst,
+dass du in einem komischen Zustand bist, kannst du mit dem Reset-Pin alle internen Register resetten.
+Falls das nicht helfen sollte, komme ich gerne bei dir vorbei.})\\
+
+\subsubsection*{iii)}
+Zusatzaufgabe: Finde mit einem Digital-Scope heraus, wie viele Takte die Zeiteinheiten ``kurz, mittel, lang und sehr lang'' darstellen.
 
 
 \section*{Aufgabe 3: Mehr Logisim}
@@ -142,6 +195,7 @@ Mache dich ein bisschen mit Logisim vertraut und schaue dich um (wenn du mehr so
 	\item Wie kann man Signale darstellen (LED, Oszilloskop, Outputs ...)?
 	\item Wie kann ich Signale erzeugen, für was ist der Clock Baustein?
 	\item Wie kann ich Subsysteme erstellen?
+	\item Wie kann ich einen Subsystem Eingänge verpassen, wie Ausgänge?
 	\item Wie kann ich die Parmeter eines Bausteins verändern (z.B. Eingänge eines Gates)?
 	\item Was ist der Unterschied zwischen den Bauteilkategorien (bzw. wo finde ich was)?
 \end{itemize}
