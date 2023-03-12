@@ -65,17 +65,77 @@
 
 \header{ \NUMBER}{\DATE}
 
+\section*{Aufgabe 1: Installtion}
+Für die Simulation unserer VHDL Designs, sowie die Auswertung unsere Simulationsergebnisse brauchen wir zwei Tools. GHDL
+ein Open Source ``analyzer, compiler, simulator and (experimental) synthesizer for VHDL''. GHDL erzeugt sogenannte ``Waveforms''
+(Signalgraphen), damit wir diese anschauen können, brauchen wir einen Viewer: gtkwave.\\
 
-\section*{Aufgabe 1: Full-Adder Beispiel}
+\textbf{GHDL}
+\begin{itemize}
+  \item Für Linux:
+  \begin{itemize}
+    \item Nutze einfach deinen System-Package-Manager
+    \item z.B. auf Debian: \texttt{sudo apt install ghdl}
+  \end{itemize}
+  \item Für Windows/MacOS:
+  \begin{itemize}
+    \item https://github.com/ghdl/ghdl
+    \item Gehe zu: Releases
+    \item Downloade ein für dein OS passendes Paket
+    \begin{itemize}
+      \item für Windows z.B.: ghdl-UCRT64.zip
+      \item für MacOS z.B.: ghdl-macos-11-llvm.tgz
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\textbf{gtkwave}
+\begin{itemize}
+  \item Für Linux:
+  \begin{itemize}
+    \item Nutze einfach deinen System-Package-Manager
+    \item z.B. auf Debian: \texttt{sudo apt install gtkwave}
+  \end{itemize}
+  \item Für Windows/MacOS:
+  \begin{itemize}
+    \item https://sourceforge.net/projects/gtkwave/files/
+    \item Scrolle durch die Liste und finde ein für dich richtiges Paket
+    \begin{itemize}
+      \item für Windows z.B.: gtkwave-3.3.100-bin-win64
+      \item für MacOS z.B.: gtkwave-3.3.107-osx-app
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+\section*{Bespielaufgabe 2: Full-Adder Beispiel}
 \subsection*{a) Simulation}
-Das Beispiel besteht aus zwei Dateien. In \texttt{adder.vhd} ist der eigentliche 1-Bit Full-Adder implementiert. 
-Schaue in den Code versuche zu verstehen was dort passiert. \\
-In \texttt{tb\_adder.vhd} ist die Testbench für die Schaltung. Mit ihrer Hilfe kann man den Full-Adder simulieren und wir können die Funktionalität überprüfen.
-Verusche nachzuvollziehen wie die Testbench mit der adder-Entity verschalten ist und was mit den Signalen der Testbench passiert. Warum hat die Testbench kein I/O?\\
+Um dich an die beiden neuen Tools zu gewöhnen, legen wir mal mit einer Beispielaufgabe an.
+Ähnlich wie wir es in manchen vorherigen Laboren in Logisim gemacht haben, wollen wir auch in VHDL
+für jede Komponente in VHDL eine Testkomponente, welche dies Komponente testet anlegen.\\
 
-Für die Simulation kann unter Linux einfach das mitgelieferte Makefile ausgeführt werden. Für Windows/MacOS muss ein Script mit den folgenden Commands angelegt werden (PathToExe 
-wird jeweils nicht benötigt, wenn Executables in der Pfad Variable eingetragen wurden). Stelle sicher, dass die Befehle im Verzeichnis des VHDL-Projekts ausgeführt wird:\\
-Windows:
+Das Beispiel besteht aus zwei Dateien. 
+\begin{itemize}
+  \item \texttt{adder.vhd}: Implementiert einen 1-Bit Full-Adder.
+  \item \texttt{tb\_adder.vhd}: Ist die Testbench für den 1-Bit Full-Adder.
+\end{itemize}
+Schaue in beide Files und versuche mit den Informationen, die du in der Einführung zu VHDL bekommen hast zu verstehen, was dort vor sich geht.
+
+Versuch folgenden Fragen zu beantworten:
+\begin{itemize}
+  \item Hat der 1-Bit Full-Adder Ein-/Ausgänge?
+  \item Was passiert intern im 1-Bit Full-Adder?
+  \item Ist die Testbench mit dem Full-Adder verschalten? Wenn ja wie?
+  \item Was macht die Testbench?
+  \item Hat die die Testbench Ein-/Ausgänge? Wenn ja warum, wenn nein warum nicht?
+  \item Was versuchen wir zu addieren?
+\end{itemize}
+
+Wenn du denkst du hast die beiden Komponente verstanden versuche das Beispiel zu simulieren und die Ergebnisse anzuschauen.
+Für die Simulation kann unter Linux einfach das mitgelieferte Makefile ausgeführt werden. Für Windows/MacOS muss ein Script mit den folgenden Commands angelegt werden (oder 
+die CMDs nacheinander ausgeführt werden).
+Stelle sicher, dass die Befehle im Verzeichnis des VHDL-Projekts ausgeführt wird:\\
+Windows/MacOS:
 \begin{itemize}
   \item $<$PathToExe$>$/ghdl -a --std=08 adder.vhd tb\_adder.vhd
 	\item $<$PathToExe$>$/ghdl -e --std=08 adder\_tb
@@ -88,30 +148,44 @@ Linux:
 	\item gtkwave wave.ghw
 \end{itemize}
 
-Mit dem \texttt{gtkwave} Befehl sollte ein Fenster aufgegangen sein, in welchem man nun die Simulationsergebnisse anschauen kann.
-\begin{figure}[h]
-  \includegraphics[width=\textwidth]{gtkwave.png}
-\end{figure}
+Mit dem \texttt{gtkwave} Befehl sollte ein Fenster aufgegangen sein, in welchem man nun die Simulationsergebnisse anschauen kann. Analysiere dort die Signale.
+% \begin{center}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gtkwave.png}
+  \end{figure}
+% \end{center}
+  
 
-Tut der Adder was er soll?
 
 \subsection*{b) Design vs. Simulation}
-Mit dem GHDL-Compiler kann man zwar seine VHDL Designs simulieren, aber man kann damit keine Binär-Files erzugen, die man zum Beispiel in ein FPGA programmieren kann. 
-Um aus einem VHDL Design eine Datei zu erzeugen, welche in ein FPGA geladen werden kann, benötigt man meist eine Design IDE des Herstellers (z.B. Xilinx Vivado o.
+Mit dem GHDL-Compiler kann man zwar seine VHDL Designs simulieren, aber man kann damit nur experimentell Binär-Files erzugen, die man zum Beispiel in ein FPGA programmieren könnte. 
+Um aus einem VHDL Design eine Datei zu erzeugen, welche in ein FPGA geladen werden kann, benötigt man typischerweise IDE des Herstellers (z.B. Xilinx Vivado o.
 Intel Quartus). Diese IDEs integrieren meist direkt einen Simulator, so dass man in einer großen IDE entwickeln, simulieren und das Binär-File erstellen kann. Diese
-Suites sind typischerweise mehrere Gigabyte groß und sind meist nicht umsonst.
+Suites sind typischerweise mehrere Gigabyte groß und nicht umsonst.
 
-\subsection*{c) To Be Synthesizeable or Not To Be Synthesizeable}
-Synthesizeable (oder synthethisierbar) bedeutet das Design (der VHDL Code) in eine niedrigere Abstraktionschicht zu bringen (z.B. aus VHDL nach RTL (Register Transfer Logik)). Dies wird
-benötigt, um aus einem Design letzten Endes Lithografiemasken für einen Chip oder das Binär-File für ein FPGA zu erzeugen. 
+\subsection*{c)}
+VHDL ist eine Hardwarebeschreibungssprache und damit erstmal nicht zu verwechseln mit einer Programmiersprache. Unsere adder.vhd beschreibt Hardware und erstmal keinen Algorithmus 
+in SW. Durch die Möglichkeit der Simulation, die wir mit der Testbench nutzen, kann in VHDL aber dennoch Datenverarbeitung stattfinden (dadurch ist VHDL zusammen mit einem
+Simulator z.B. GHDL turing vollständig).
 
-Versuche zu verstehen warum die adder-Entity in \texttt{adder.vhd} synthethisierbar ist (bedeutet die könnten wir ``in'' ein FPGA/Chip bringen), die Testbench (tb) aber nicht.
-Das bedeutet die Testbench kann lediglich für die Simulation hergenommen werden.
+Um aus einer VHDL Implementierung echte HW zu erzeugen  muss ein VHDL Design ``synthethisiert'' werden (d.h. es muss in eine niedrigere Abstraktionschicht gebracht werden).
+Z.B. aus VHDL nach RTL (Register Transfer Logik)). Dies wird
+benötigt, um daraus ein Design für Lithografiemasken für einen Chip oder das Binär-File für ein FPGA zu erzeugen. 
 
-\section*{Aufgabe 2: Der 3 Bit-Adder}
-Versuche mit der 1-Bit Adder Komponente durch Verschaltung einen 3-Bit Adder zu erstellen. Erstelle auch hier für eine Testbench und für eine Simulation durch.
+Es sind aber nicht alle .vhd Files synthethisierbar.
+Fragen:
+\begin{itemize}
+  \item Ist der adder.vhd synthethisierbar? Warum?
+  \item Ist der tb\_adder.vhd synthethisierbar? Warum?
+\end{itemize}
 
-\section*{Aufgabe 3: ALU (Bonusaufgabe für Zuhause)}
+
+\section*{Aufgabe 3: Der 4 Bit-Adder}
+Versuche mit der 1-Bit Adder Komponente durch Verschaltung einen 4-Bit Adder zu erstellen. Erstelle auch hier für eine Testbench und führe eine Simulation durch.
+Analysiere die Ergebnisse mit  gtkwave.
+
+\section*{Aufgabe 4: ALU (Bonusaufgabe für Zuhause)}
 Modelliere und simuliere die ALU aus Labor 2 mit VHDL. Gehe hier Schritt für Schritt vor:\\
 \begin{itemize}
   \item Erstelle Entities für jeden Block (z.B. für das 8-Bit OR).

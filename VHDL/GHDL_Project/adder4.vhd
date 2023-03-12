@@ -1,15 +1,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
  
-entity adder3 is
+entity adder4 is
     port(
-        in1 : in std_logic_vector(2 downto 0);
-        in2 : in std_logic_vector(2 downto 0);
-        out1 : out std_logic_vector(3 downto 0)
+        in1 : in std_logic_vector(3 downto 0);
+        in2 : in std_logic_vector(3 downto 0);
+        out1 : out std_logic_vector(4 downto 0)
     );
-end adder3;
+end adder4;
 
-architecture struc of adder3 is
+architecture struc of adder4 is
     component adder is 
         port (
             i_bit1  : in std_logic;
@@ -23,6 +23,7 @@ architecture struc of adder3 is
 
     signal carry1 : std_logic;
     signal carry2 : std_logic;
+    signal carry3 : std_logic;
 begin
     b0 : adder
         port map(
@@ -46,6 +47,14 @@ begin
             i_bit2 => in2(2),
             i_carry => carry2,
             o_sum => out1(2),
-            o_carry => out1(3)
+            o_carry => carry3
+        );
+    b3 : adder
+        port map(
+            i_bit1 => in1(3),
+            i_bit2 => in2(3),
+            i_carry => carry3,
+            o_sum => out1(3),
+            o_carry => out1(4)
         );
 end struc;
