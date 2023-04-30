@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project source="3.7.2" version="1.0">
-  This file is intended to be loaded by Logisim-evolution v3.7.2(https://github.com/logisim-evolution/).
+<project source="3.8.0" version="1.0">
+  This file is intended to be loaded by Logisim-evolution v3.8.0(https://github.com/logisim-evolution/).
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
@@ -544,38 +544,34 @@
     <a name="circuit" val="Test_Shift_Reg_8Bit"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(260,350)" name="Splitter">
-      <a name="facing" val="west"/>
-      <a name="fanout" val="8"/>
-      <a name="incoming" val="8"/>
+    <comp lib="0" loc="(540,400)" name="Clock"/>
+    <comp lib="0" loc="(560,360)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(460,390)" name="Clock"/>
-    <comp lib="0" loc="(840,350)" name="Probe">
+    <comp lib="0" loc="(560,380)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+    </comp>
+    <comp lib="0" loc="(560,420)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+    </comp>
+    <comp lib="0" loc="(880,360)" name="Probe">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
     </comp>
-    <comp lib="0" loc="(840,370)" name="Probe">
+    <comp lib="0" loc="(880,380)" name="Probe">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
     </comp>
-    <comp lib="5" loc="(240,350)" name="DipSwitch">
-      <a name="facing" val="east"/>
-    </comp>
-    <comp lib="5" loc="(370,360)" name="DipSwitch">
-      <a name="facing" val="east"/>
-      <a name="number" val="2"/>
-    </comp>
-    <comp lib="5" loc="(460,430)" name="Button"/>
-    <comp loc="(750,350)" name="Shift_Reg_8Bit"/>
-    <wire from="(260,350)" to="(530,350)"/>
-    <wire from="(370,370)" to="(530,370)"/>
-    <wire from="(370,380)" to="(390,380)"/>
-    <wire from="(390,380)" to="(390,410)"/>
-    <wire from="(390,410)" to="(530,410)"/>
-    <wire from="(460,390)" to="(530,390)"/>
-    <wire from="(460,430)" to="(530,430)"/>
-    <wire from="(750,350)" to="(840,350)"/>
-    <wire from="(750,370)" to="(840,370)"/>
+    <comp lib="5" loc="(470,440)" name="Button"/>
+    <comp loc="(790,360)" name="Shift_Reg_8Bit"/>
+    <wire from="(470,440)" to="(570,440)"/>
+    <wire from="(540,400)" to="(570,400)"/>
+    <wire from="(560,360)" to="(570,360)"/>
+    <wire from="(560,380)" to="(570,380)"/>
+    <wire from="(560,420)" to="(570,420)"/>
+    <wire from="(790,360)" to="(880,360)"/>
+    <wire from="(790,380)" to="(880,380)"/>
   </circuit>
   <circuit name="Slave">
     <a name="appearance" val="logisim_evolution"/>
@@ -840,6 +836,10 @@
     <a name="circuit" val="SPI"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1020,120)" name="Probe">
+      <a name="appearance" val="NewPins"/>
+      <a name="radix" val="16"/>
+    </comp>
     <comp lib="0" loc="(1020,390)" name="Probe">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="west"/>
@@ -897,10 +897,12 @@
     <comp loc="(620,160)" name="Master"/>
     <wire from="(1010,340)" to="(1030,340)"/>
     <wire from="(1010,360)" to="(1020,360)"/>
+    <wire from="(1020,120)" to="(1030,120)"/>
     <wire from="(1020,160)" to="(1030,160)"/>
     <wire from="(1020,180)" to="(1020,220)"/>
     <wire from="(1020,220)" to="(1030,220)"/>
     <wire from="(1020,360)" to="(1020,390)"/>
+    <wire from="(1030,120)" to="(1030,160)"/>
     <wire from="(1120,200)" to="(1180,200)"/>
     <wire from="(1120,380)" to="(1180,380)"/>
     <wire from="(1150,210)" to="(1150,390)"/>
@@ -962,10 +964,31 @@
     <wire from="(780,420)" to="(790,420)"/>
     <wire from="(780,460)" to="(1150,460)"/>
   </circuit>
-  <circuit name="Slave_2">
+  <circuit name="Test_Register_8">
     <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="Slave_2"/>
+    <a name="circuit" val="Test_Register_8"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(380,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(620,140)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="5" loc="(350,170)" name="Button"/>
+    <comp lib="5" loc="(350,190)" name="Button"/>
+    <comp loc="(610,140)" name="Register_8Bit"/>
+    <wire from="(350,170)" to="(370,170)"/>
+    <wire from="(350,190)" to="(370,190)"/>
+    <wire from="(370,160)" to="(370,170)"/>
+    <wire from="(370,160)" to="(390,160)"/>
+    <wire from="(370,180)" to="(370,190)"/>
+    <wire from="(370,180)" to="(390,180)"/>
+    <wire from="(380,140)" to="(390,140)"/>
+    <wire from="(610,140)" to="(620,140)"/>
   </circuit>
 </project>

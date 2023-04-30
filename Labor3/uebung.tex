@@ -1,11 +1,11 @@
 % ----------------------- TODO ---------------------------
 % Diese Daten müssen pro Blatt angepasst werden:
-\newcommand{\NUMBER}{3}
+\newcommand{\NUMBER}{4}
 \newcommand{\EXERCISES}{5}
 % Diese Daten müssen einmalig pro Vorlesung angepasst werden:
 \newcommand{\COURSE}{Grundlagen der Digitaltechnik}
 \newcommand{\TOPIC}{Registerschaltungen}
-\newcommand{\DATE}{06.05.2022}
+\newcommand{\DATE}{\today}
 % ----------------------- TODO ---------------------------
 
 \documentclass[a4paper]{scrartcl}
@@ -257,14 +257,15 @@ vllt. aufgekommen sind:
 
 \section*{Aufgabe 3: Bonus (wenn Zeit übrig)}
 Bei der Analyse der ALU aus Aufgabenblatt 2 ist aufgefallen, dass die erstellte ALU keine Operation für eine 
-Rechtsverschiebung zur Verfügung stellt, obwohl dies eigentlich zur Minimalfunktion einer ALU gehört. Entwickle eine 
-Schaltnetz, welches die Rechtsverschiebung durchführt, teste dieses und füge es inder ALU hinzu.\\
-Müssen noch andere Sachen erweitert aus der neuen Teilschaltung hinzugefügt werden?
+Rechtsverschiebung zur Verfügung stellt, obwohl dies eigentlich zur Minimalfunktion einer ALU gehört. Da es 
+zu zeitaufwändig ist zu überprüfen, ob die Rechtsverschiebung mit anderen Operationen implizit durchgeführt werden kann, 
+soll ein Schaltnetz entwickelt werden, welches dediziert die Rechtsverschiebung durchführt, teste dieses und füge es in der ALU hinzu.\\
+Müssen noch andere Sachen erweitert werden, damit die neue Teilschaltung hinzugefügt werden kann?
 \\
 
 \textbf{Hinweis:} 
 \begin{itemize}
-  \item Rechtsverschiebung bedeutet, dass unterste 8-Bits "weggeschoben" wird und alle anderen Bits eine Stelle nach unten rücken:\\
+  \item Rechtsverschiebung bedeutet, dass unterste 8-Bits ``weggeschoben'' wird und alle anderen Bits eine Stelle nach unten rücken:\\
   Bsp.: $0b1001 \rightarrow 0b0100$
   \item Schaltnetz bedeutet das hier lediglich Logik, aber keine speicherenden Elemente (Flipflops) benutzt werden sollen.
 \end{itemize}
